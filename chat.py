@@ -14,9 +14,9 @@ with st.sidebar:
     pdf_file = st.file_uploader('Upload a PDF file')
 
     if pdf_file:
-        # TODO(victor-iyi): Display the title of the paper & a summary.
-        # 1. Extract the content of the PDF file.
+        # Create a vector index of the PDF file.
         st.session_state.index = create_index(pdf_file)
+        # TODO(victor-iyi): Display the title of the paper & a summary.
 
 
 def add_to_message_history(role: str, content: str) -> None:
@@ -48,8 +48,8 @@ else:
     st.session_state.chat_engine = st.session_state.index.as_chat_engine()
 
 if prompt := st.chat_input():
-    add_to_message_history('user', prompt)
     st.chat_message('user').write(prompt)
+    add_to_message_history('user', prompt)
     with st.chat_message('assistant'):
         with st.spinner('Thinking...'):
             response = st.session_state.chat_engine.chat(prompt)

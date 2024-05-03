@@ -3,24 +3,59 @@
 Research assistant is an AI tool that helps you learn more about a given research.
 You can generate summaries, questions, and answers from a research paper.
 
+![Research Assistant][demo-image]
+
+[demo-image]: ./res/images/research-assistant-demo.png
+
+## Installation
+
+You can install the tool using the following command:
+
+```sh
+poetry install
+```
+
+This will install all the dependencies required to run the tool.
+
+You can optionally install the dev-dependencies using the following command:
+
+```sh
+poetry install --with dev
+```
+
+## Setup
+
+By the default, the tool uses OpenAI's model. You need to set the `OPENAI_API_KEY`
+by creating a `.env` file in the root directory of the project.
+
+```sh
+mv .env.example .env
+```
+
+Then open the `.env` file and set the `OPENAI_API_KEY` to your OpenAI API key.
+
+```sh
+OPENAI_API_KEY=sk-...
+```
+
 ## Usage
 
-To use the tool, you need to have a research paper in PDF format. You can pass
-the path or URL to the PDF file as an argument. The tool will then generate a
-summary of the paper. You can then start a chat session with the tool to ask
-questions about the paper.
-
-### Using local file**
+Launch a local server using the following command:
 
 ```sh
-python main.py --file path/to/research.pdf
+streamlit run chat.py
 ```
 
-### Using URL
+This will open a browser window with the tool running on `localhost:8501`.
+You can now interact with the tool. Upload a research paper and converse with
+the AI to generate summaries, questions, and answers.
 
-```sh
-python main.py --url https://example.com/research.pdf
-```
+## Roadmap
+
+- [x] Create a basic chat interface
+- [ ] Make initial loading faster
+- [ ] Use arxiv URL to fetch research paper
+- [ ] Add configuration options
 
 ## Contribution
 

@@ -33,7 +33,11 @@ packages = [{include = "research_assistant", from = "src"}]
 [tool.poetry.dependencies]
 python = "^3.11"
 
-rich = "^13.7.1"
+streamlit = "^1.33.0"
+watchdog = "^4.0.0"
+llama-index = "^0.10.33"
+python-dotenv = "^1.0.1"
+llama-index-embeddings-huggingface = "^0.2.0"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -6,6 +6,8 @@ from llama_index.core import Document, VectorStoreIndex
 from llama_index.core.node_parser import SentenceSplitter
 from llama_index.core.embeddings import resolve_embed_model
 
+from research_assistant.loaders import pdf_loader
+
 
 def create_index(uploaded_file: UploadedFile) -> VectorStoreIndex:
     """Loads a PDF file and creates an index of its content.
@@ -17,12 +19,15 @@ def create_index(uploaded_file: UploadedFile) -> VectorStoreIndex:
         VectorStoreIndex: An index of the PDF file content.
 
     """
-    reader = PdfReader(uploaded_file)
-    text = ''
-    for page in reader.pages:
-        text += f'\n\n{page.extract_text()}'
 
-    docs = [Document(text=text)]
+    docs: list[Document] = []
+
+    # Handle PDF files.
+    if uploaded_file.type == 'application/pdf':
+        docs = pdf_loader(uploaded_file)
+    else:
+        raise NotImplementedError('File type is not yet supported')
+
     node_parser = SentenceSplitter()
 
     base_nodes = node_parser.get_nodes_from_documents(docs)
